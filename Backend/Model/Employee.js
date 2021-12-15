@@ -4,17 +4,21 @@ const mongoose = require('mongoose');
  // List of columns for Employee schema
  let Employee = new Schema({
  name: {
- type: String
+ type: String,
+ required: true,
  },
  dateOfBirth: {
  type: Date,
+ required: true,
  },
  gender: {
     type:String,
     enum:['male','female'],
+    required: true,
  },
  salary: {
- type: Number
+ type: Number,
+ required: true,
  }
  },{
  collection: 'employees'
