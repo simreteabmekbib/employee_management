@@ -5,8 +5,9 @@ const express = require("express"),
   cors = require("cors"),
   mongoose = require("mongoose");
 
+require('dotenv').config();
 // MongoDB Databse url
-var mongoDatabase = "mongodb://localhost:27017/employeeDetails";
+var mongoDatabase = process.env.DB_URI;
 
 // Created express server
 const app = express();
