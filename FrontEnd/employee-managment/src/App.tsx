@@ -1,34 +1,69 @@
-import * as React from 'react';
-import './App.css';
-import { Switch, Route, withRouter, RouteComponentProps, Link } from 'react-router-dom';
-import Home from './components/Home';
-import Create from './components/employee/Create';
-import EditCustomer from './components/employee/Edit';
+import React, { Component } from "react";
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  BrowserRouter,
+} from "react-router-dom";
+import Home from "./components/Home";
+import Create from "./components/employee/Create";
+import EditEmployee from "./components/employee/Edit";
+import { AppProps, IEmployee } from "./redux/actions/interface";
 
-class App extends React.Component<RouteComponentProps<any>> {
-  public render() {
-    return (
+function App({
+  state,
+  onInit,
+  onGetOne,
+  onCreate,
+  onEdit,
+  onDelete,
+}: AppProps) {
+  return (
+    <BrowserRouter>
       <div>
         <nav>
           <ul>
             <li>
-              <Link to={'/'}> Home </Link>
+              <Link to={"/"}> Home </Link>
             </li>
             <li>
-              <Link to={'/create'}> Create Customer </Link>
+              <Link to={"/create"}> Create Customer </Link>
             </li>
           </ul>
         </nav>
         <Switch>
-          <Route path={'/'} exact component={Home} />
-          <Route path={'/create'} exact component={Create} />
-          <Route path={'/edit/:_id'} exact component={EditCustomer} />
+
+          <Route path={"/create"} children={<Create onCreate={onCreate} />} />
+          <Route
+            path={"/edit/:_id"}
+            children={
+              <EditEmployee
+                onEdit={onEdit}
+                currentEmployee={state.currentEmployee as IEmployee}
+              />
+            }
+          />
+          <Route
+            path={"/"}
+            children={
+              <Home
+                employees={state.employees}
+                onInit={onInit}
+                onGetOne={onGetOne}
+                onDelete={onDelete}
+              />
+            }
+          />
+         
         </Switch>
       </div>
-    );
-  }
+    </BrowserRouter>
+  );
 }
-export default withRouter(App);
+
+export default App;
 // import React from 'react';
 // import logo from './logo.svg';
 // import './App.css';

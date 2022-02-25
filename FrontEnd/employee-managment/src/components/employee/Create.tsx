@@ -1,58 +1,96 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import axios from 'axios';
+import { IEmployee } from '../../redux/actions/interface';
 
-export interface IValues {
-    name: string,
-    dateOfBirth: Date,
-    gender: string,
-    salary: Number,
-}
-export interface IFormState {
-    [key: string]: any;
-    values: IValues[];
-    submitSuccess: boolean;
-    loading: boolean;
+interface IProps extends RouteComponentProps{
+    onCreate: Function
 }
 
-class Create extends React.Component<RouteComponentProps, IFormState> {
-    constructor(props: RouteComponentProps) {
+interface IState extends IEmployee {
+    submitSuccess: boolean, loading:boolean,
+}
+
+class Create extends React.Component<IProps, IState> {
+    constructor(props: IProps) {
         super(props);
+        this.onChangeName = this.onChangeName.bind(this);
+        this.onChangeDateOfBirth = this.onChangeDateOfBirth.bind(this);
+        this.onChangeGender = this.onChangeGender.bind(this);
+        this.onChangeSalary = this.onChangeSalary.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+
         this.state = {
             name: '',
-            dateOfBirth: Date(),
+            birthDate: new Date(),
             gender: '',
             salary: 0,
-            values: [],
-            loading: false,
-            submitSuccess: false,
+            submitSuccess: false, 
+            loading:false,
         }
-    }
-    private processFormSubmission = (e: React.FormEvent<HTMLFormElement>): void => {
-        e.preventDefault();
-        this.setState({ loading: true });
-        const formData = {
-            name: this.state.name,
-            dateOfBirth: new Date(this.state.dateOfBirth),
-            gender: this.state.gender,
-            salary: this.state.salary,
-        }
-        console.log(formData);
-        this.setState({ submitSuccess: true, values: [...this.state.values, formData], loading: false });
-        axios.post(`http://localhost:4000/employees/addEmployee`, formData).then(data => [
-            setTimeout(() => {
-                this.props.history.push('/');
-            }, 1500)
-        ]);
     }
 
-    private handleInputChanges = (e: React.FormEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        console.log(e.currentTarget.name);
+    onChangeName(e: React.ChangeEvent<HTMLInputElement>) {
         this.setState({
-            [e.currentTarget.name]: e.currentTarget.value,
-    })
-}
+            name: String(e.target.value)
+        });
+    }
+
+    onChangeDateOfBirth(e: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({
+          birthDate: new Date(e.target.value),
+        });
+      }
+
+      onChangeGender(e: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({
+          gender: String(e.target.value),
+        });
+      }
+
+    onChangeSalary(e: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({
+            salary: Number(e.target.value)
+        });
+    }
+
+    onSubmit(e: React.FormEvent<HTMLFormElement>) {
+                this.setState({ loading: true });
+
+        e.preventDefault();
+        this.props.onCreate(this.state);
+        this.setState({ submitSuccess: true, loading: false });
+        setTimeout(() => {
+                            this.props.history.push('/');
+                        }, 1500)
+        //window.location.href = '/'; // FIXME: if not working, window.location = '/'
+    }
+
+//     private processFormSubmission = (e: React.FormEvent<HTMLFormElement>): void => {
+//         e.preventDefault();
+//         this.setState({ loading: true });
+//         const formData = {
+//             name: this.state.name,
+//             dateOfBirth: new Date(this.state.dateOfBirth),
+//             gender: this.state.gender,
+//             salary: this.state.salary,
+//         }
+//         console.log(formData);
+//         this.setState({ submitSuccess: true, values: [...this.state.values, formData], loading: false });
+//         axios.post(`http://localhost:4000/employees/addEmployee`, formData).then(data => [
+//             setTimeout(() => {
+//                 this.props.history.push('/');
+//             }, 1500)
+//         ]);
+//     }
+
+//     private handleInputChanges = (e: React.FormEvent<HTMLInputElement>) => {
+//         e.preventDefault();
+//         console.log(e.currentTarget.name);
+//         this.setState({
+//             [e.currentTarget.name]: e.currentTarget.value,
+//     })
+// }
 public render() {
     const { submitSuccess, loading } = this.state;
     return (
@@ -69,22 +107,22 @@ public render() {
                         The form was successfully submitted!
                         </div>
                 )}
-                <form id={"create-post-form"} onSubmit={this.processFormSubmission} noValidate={true}>
+                <form id={"create-post-form"} onSubmit={this.onSubmit} noValidate={true}>
                     <div className="form-group col-md-12">
                         <label htmlFor="name"> name </label>
-                        <input type="text" id="name" onChange={(e) => this.handleInputChanges(e)} name="name" className="form-control" placeholder="Enter employee's name" />
+                        <input type="text" id="name" onChange={(e) => this.onChangeName(e)} name="name" className="form-control" placeholder="Enter employee's name" />
                     </div>
                     <div className="form-group col-md-12">
                         <label htmlFor="dateOfBirth"> Date Of Birth </label>
-                        <input type="date" id="dateOfBirth" onChange={(e) => this.handleInputChanges(e)} name="dateOfBirth" className="form-control" placeholder="yyyy-mm-dd" />
+                        <input type="date" id="dateOfBirth" onChange={(e) => this.onChangeDateOfBirth(e)} name="dateOfBirth" className="form-control" placeholder="yyyy-mm-dd" />
                     </div>
                     <div className="form-group col-md-12">
                         <label htmlFor="gender"> Gender </label>
-                        <input type="text" id="gender" onChange={(e) => this.handleInputChanges(e)} name="gender" className="form-control" placeholder="Enter employee's gender" />
+                        <input type="text" id="gender" onChange={(e) => this.onChangeGender(e)} name="gender" className="form-control" placeholder="Enter employee's gender" />
                     </div>
                     <div className="form-group col-md-12">
                         <label htmlFor="salary"> Salary </label>
-                        <input type="number" id="salary" onChange={(e) => this.handleInputChanges(e)} name="salary" className="form-control" placeholder="Enter employee's salary" />
+                        <input type="number" id="salary" onChange={(e) => this.onChangeSalary(e)} name="salary" className="form-control" placeholder="Enter employee's salary" />
                     </div>                    
                     <div className="form-group col-md-4 pull-right">
                         <button className="btn btn-success" type="submit">
