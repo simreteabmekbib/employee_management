@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import axios from 'axios';
 import { IEmployee } from '../../redux/actions/interface';
 
 interface IProps extends RouteComponentProps{
@@ -63,34 +62,8 @@ class Create extends React.Component<IProps, IState> {
         setTimeout(() => {
                             this.props.history.push('/');
                         }, 1500)
-        //window.location.href = '/'; // FIXME: if not working, window.location = '/'
     }
 
-//     private processFormSubmission = (e: React.FormEvent<HTMLFormElement>): void => {
-//         e.preventDefault();
-//         this.setState({ loading: true });
-//         const formData = {
-//             name: this.state.name,
-//             dateOfBirth: new Date(this.state.dateOfBirth),
-//             gender: this.state.gender,
-//             salary: this.state.salary,
-//         }
-//         console.log(formData);
-//         this.setState({ submitSuccess: true, values: [...this.state.values, formData], loading: false });
-//         axios.post(`http://localhost:4000/employees/addEmployee`, formData).then(data => [
-//             setTimeout(() => {
-//                 this.props.history.push('/');
-//             }, 1500)
-//         ]);
-//     }
-
-//     private handleInputChanges = (e: React.FormEvent<HTMLInputElement>) => {
-//         e.preventDefault();
-//         console.log(e.currentTarget.name);
-//         this.setState({
-//             [e.currentTarget.name]: e.currentTarget.value,
-//     })
-// }
 public render() {
     const { submitSuccess, loading } = this.state;
     return (

@@ -1,17 +1,13 @@
 import * as React from 'react';
-import { useParams } from "react-router";
-
-//import { RouteComponentProps, withRouter } from 'react-router-dom';
-import axios from 'axios';
 import moment from 'moment';
 import { IEmployee } from '../../redux/actions/interface';
 
-interface EditEmployeeProps {
+interface EditEmployeeProps{
     onEdit: Function;
     currentEmployee: IEmployee;
   }
   
-  interface IProps extends EditEmployeeProps {
+  interface IProps extends EditEmployeeProps{
     id: string;
   }
   
@@ -27,8 +23,7 @@ interface EditEmployeeProps {
       <EditCustomer
         id={id!}
         onEdit={onEdit}
-        currentEmployee={currentEmployee}
-      />
+        currentEmployee={currentEmployee} />
     );
   }
 
@@ -52,10 +47,6 @@ class EditCustomer extends React.Component<IProps, IState> {
         };
     }
     public componentDidMount(): void {
-        // axios.get(`http://localhost:4000/employees/editEmployee/${this.state._id}`).then(data => {
-        //     this.setState({ employee: data.data });
-        //     this.setState({ values: data.data });
-        // })
         let e = this.props.currentEmployee;
     this.setState({
       _id: e._id,
@@ -98,31 +89,12 @@ class EditCustomer extends React.Component<IProps, IState> {
         this.setState({ submitSuccess: true, loading: false });
 
         setTimeout(() => {
-                          //this.props.route.push('/');
+          
+          //this.props.history.push('/');
                       }, 1500)
 
-        //window.location.href = "/"; // FIXME: if not working, window.location = '/'
       }
-    // private processFormSubmission = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-    //     e.preventDefault();
-    //     this.setState({ loading: true });
-    //     axios.post(`http://localhost:4000/employees/updateEmployee/${this.state._id}`, this.state.values).then(data => {
-    //         this.setState({ submitSuccess: true, loading: false })
-    //         setTimeout(() => {
-    //             this.props.history.push('/');
-    //         }, 1500)
-    //     })
-    // }
-
-    // private setValues = (values: IValues) => {
-    //     console.log(this.state.values);
-    //     console.log(values);
-    //     this.setState({ values: { ...this.state.values, ...values } });
-    // }
-    // private handleInputChanges = (e: React.FormEvent<HTMLInputElement>) => {
-    //     e.preventDefault();
-    //     this.setValues({ [e.currentTarget.id]: e.currentTarget.value })
-    // }
+    
     render() {
         const { submitSuccess, loading } = this.state;
         return (
@@ -175,4 +147,3 @@ class EditCustomer extends React.Component<IProps, IState> {
         )
     }
 }
-//export default withRouter(EditCustomer)

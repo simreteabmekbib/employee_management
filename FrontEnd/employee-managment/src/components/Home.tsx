@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import moment from 'moment';
 import { IEmployee } from '../redux/actions/interface';
 import styled from "styled-components";
@@ -37,25 +37,10 @@ export default class Home extends React.Component<IProps, IState> {
     constructor(props: IProps) {
         super(props);
         this.props.onInit();
-        //this.state 
     }
-    //public componentDidMount(): void {
-        // axios.get(`http://localhost:4000/employees`).then(data => {
-        //     this.setState({ employees: data.data })
-        // })
-        //this.props.retrieveTutorials();
-    //}
-    // public deleteCustomer(_id: string) {
-    //     // axios.get(`http://localhost:4000/employees/deleteEmployee/${_id}`).then(data => {
-    //     //     const index = this.state.employees.findIndex(employee => employee._id === _id);
-    //     //     this.state.employees.splice(index, 1);
-    //     //     this.props.history.push('/');
-    //     // })
-    //     this.props.deleteTutorial();
-    // }
+    
     public render() {
-    //const { tutorials } = this.props.retrieveTutorials();
-    //console.log("tutorials: "+ tutorials);
+    
         return (
             <div>
                 {this.props.employees.length === 0 && (

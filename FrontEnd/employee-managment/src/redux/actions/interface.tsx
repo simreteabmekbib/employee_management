@@ -4,9 +4,7 @@ export interface IEmployee {
     birthDate: Date;
     gender?: string;
     salary?: number;
-    createdAt?: Date;
-    updatedAt?: Date;
-    __v?: number
+    
 }
 
 export interface IAction {
