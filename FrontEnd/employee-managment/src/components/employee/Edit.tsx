@@ -1,5 +1,7 @@
 import * as React from 'react';
 import moment from 'moment';
+import { useHistory } from 'react-router';
+
 import { IEmployee } from '../../redux/actions/interface';
 
 interface EditEmployeeProps{
@@ -9,6 +11,7 @@ interface EditEmployeeProps{
   
   interface IProps extends EditEmployeeProps{
     id: string;
+    history: any;
   }
   
   interface IState extends IEmployee { 
@@ -18,14 +21,16 @@ interface EditEmployeeProps{
   
   export default function EditEmployee({onEdit, currentEmployee}: EditEmployeeProps) {
     const id = currentEmployee._id;
-  
+    const history = useHistory();   
+
     return (
       <EditCustomer
         id={id!}
         onEdit={onEdit}
-        currentEmployee={currentEmployee} />
+        currentEmployee={currentEmployee} history={history} />
     );
   }
+  
 
 class EditCustomer extends React.Component<IProps, IState> {
     constructor(props: IProps) {
@@ -87,10 +92,9 @@ class EditCustomer extends React.Component<IProps, IState> {
         e.preventDefault();
         this.props.onEdit(this.state);
         this.setState({ submitSuccess: true, loading: false });
-
         setTimeout(() => {
           
-          //this.props.history.push('/');
+          this.props.history.push('/');
                       }, 1500)
 
       }
