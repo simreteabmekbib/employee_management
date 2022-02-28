@@ -9,12 +9,25 @@ const DeleteButton = styled.button`
   background-color: white;
   font-size: 15px;
   color: red;
+  &:hover,
+  &:focus {
+    color: white;
+    background-color: red;
+  }
+//   &:active {
+//     color: red;
+//   }
 `;
 
 const EditButton = styled.a`
   background-color: green;
   font-size: 15px;
   color: white;
+  &:hover,
+  &:focus {
+    color: white;
+    background-color: mediumseagreen;
+  }
 `;
 
 interface IProps {
@@ -70,7 +83,7 @@ export default class Home extends React.Component<IProps, IState> {
                                         <td>
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <div className="btn-group" style={{ marginBottom: "20px" }}>
-                                                    <Link to={`edit/${employee._id}`} onClick={() => this.props.onGetOne({_id: employee._id})} className="btn btn-sm btn-outline-secondary">Edit Employee </Link>
+                                                    <EditButton href={`edit/${employee._id}`} onClick={() => this.props.onGetOne({_id: employee._id})} className="btn btn-sm btn-outline-secondary">Edit Employee </EditButton>
                                                     <DeleteButton className="btn btn-sm btn-outline-secondary" onClick={() => this.props.onDelete({_id: employee._id?.toString()})}
                                                     >Delete Employee</DeleteButton>
                                                 </div>
