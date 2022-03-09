@@ -1,4 +1,4 @@
-@import 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css';
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css";
 
 .form-wrapper {
   width: 500px;
@@ -11,7 +11,7 @@
 nav {
   width: 300px;
   margin: 0 auto;
-  background: #282c34;
+  background: #48be58;
   height: 70px;
   line-height: 70px;
 }
