@@ -1,3 +1,4 @@
+//MongoDB object modeling //A schema is a JSON object that defines the the structure and contents of your data
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 

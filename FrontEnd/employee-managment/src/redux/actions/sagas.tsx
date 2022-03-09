@@ -27,10 +27,10 @@ function* newEmployee(action: IAction) {
 function* updateEmployee(action: IAction) {
     try {
         const res: AxiosResponse<IEmployee> = yield call(putEmployee, action.payload._id!, action.payload);
-        yield put({ type: Types.UPDATE_SALARY_SUCCESS, payload: res.data });
+        yield put({ type: Types.UPDATE_EMPLOYEE_SUCCESS, payload: res.data });
     }
     catch {
-        yield put({ type: Types.UPDATE_SALARY_FAIL })
+        yield put({ type: Types.UPDATE_EMPLOYEE_FAIL })
     }
 }
 
@@ -53,7 +53,7 @@ function* watchCreateEmployee() {
 }
 
 function* watchUpdateEmployee() {
-    yield takeEvery(Types.UPDATE_SALARY, updateEmployee);
+    yield takeEvery(Types.UPDATE_EMPLOYEE, updateEmployee);
 }
 
 function* watchRemoveEmployee() {

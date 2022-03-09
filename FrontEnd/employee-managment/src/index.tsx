@@ -13,7 +13,7 @@ const persistConfig = {
   key: 'employees',
   storage,
 };
-const persistedReducer = persistReducer(persistConfig, reducer as any);
+const persistedReducer = persistReducer(persistConfig, reducer as any);//  automatically save the store each time the state updates
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(persistedReducer, compose(applyMiddleware(sagaMiddleware), devToolsEnhancer({ trace: true })));
@@ -30,7 +30,7 @@ function render() {
           onInit={(payload: Object) => action(Types.GET_EMPLOYEES, payload)}
           onGetOne={(payload: Object) => action(Types.GET_EMPLOYEE, payload)}
           onCreate={(payload: Object) => action(Types.ADD_NEW_EMPLOYEE, payload)}
-          onEdit={(payload: Object) => action(Types.UPDATE_SALARY, payload)}
+          onEdit={(payload: Object) => action(Types.UPDATE_EMPLOYEE, payload)}
           onDelete={(payload: Object) => action(Types.DELETE_EMPLOYEE, payload)} />
       </PersistGate>,
     document.getElementById('root')

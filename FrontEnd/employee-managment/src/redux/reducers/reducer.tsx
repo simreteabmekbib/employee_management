@@ -1,16 +1,12 @@
 import Types from "../actions/types";
 import { IEmployee, IState, ActionProp } from "../actions/interface";
 
-interface IEmployeeOpt extends Omit<IEmployee, 'birthDate'> {
-    birthDate?: Date;
-}
-
-const initialState: IState<IEmployeeOpt> = {
+const initialState: IState<IEmployee> = {
     employees: [],
     currentEmployee: {}
 };
 
-export default function reducer(state: IState<IEmployeeOpt> = initialState, action: ActionProp) {
+export default function reducer(state: IState<IEmployee> = initialState, action: ActionProp) {
     switch (action.type) {
         case Types.GET_EMPLOYEE:
             return {
@@ -30,11 +26,11 @@ export default function reducer(state: IState<IEmployeeOpt> = initialState, acti
                     action.payload
                 ]
             };
-        case Types.UPDATE_SALARY_SUCCESS:
+        case Types.UPDATE_EMPLOYEE_SUCCESS:
             return {
                 ...state,
-                currentEmployee: {...state.currentEmployee, salary: action.payload.salary},
-                employees: state.employees.map(e => e._id === action.payload._id ? { ...e, salary: action.payload.salary } : e)
+                currentEmployee: {...state.currentEmployee, salary: action.payload.salary, name: action.payload.name, gender: action.payload.gender, birthDate: action.payload.birthDate},
+                employees: state.employees.map(e => e._id === action.payload._id ? { ...e, salary: action.payload.salary, name: action.payload.name, gender: action.payload.gender, birthDate: action.payload.birthDate } : e)
             }
         case Types.DELETE_EMPLOYEE_SUCCESS:
             return {

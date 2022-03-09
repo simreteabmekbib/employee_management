@@ -1,4 +1,4 @@
-// Importing important packages
+// Importing important packages // useful for routing
 const express = require("express");
 
 // Using express and routes
@@ -24,7 +24,7 @@ employeeRoute.route("/addEmployee").post(function (req, res) {
   let employee = new employeeModel(req.body);
   employee
     .save()
-    .then((game) => {
+    .then((emp) => {
       res.status(200).json({ employee: "Employee Added Successfully" });
     })
     .catch((err) => {

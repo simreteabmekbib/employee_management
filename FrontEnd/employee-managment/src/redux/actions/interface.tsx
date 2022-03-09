@@ -1,7 +1,7 @@
 export interface IEmployee {
     _id?: string;
     name?: string;
-    birthDate: Date;
+    birthDate?: Date;
     gender?: string;
     salary?: number;
     
@@ -17,14 +17,9 @@ export interface IState<T> {
     currentEmployee: T;
 }
 
-export interface IPayload {
-    _id?: string;
-    salary?: number;
-}
-
 export interface ActionProp {
     type: string;
-    payload: IPayload;
+    payload: IEmployee;
 }
 
 export interface AppProps {
